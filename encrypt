@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Encrypts the input directory using 7-Zip (which must be installed).
+# To decrypt the result, just do "7z x result.7z"
+# WARNING: this will overwrite anything in its way (but it should warn you first).
+
+directory="$1"
+
+7z a -p -mhe=on -mx=0 "$1".7z "$1"
+
+# Explanation:
+# `7z` calls the 7-Zip program. See "man 7zip" for more information.
+# `a` means will add all files from the input directory.
+# `-p' will password-protect the result with AES-256 encryption.
+# `-mhe=on' will encrypt metadata, including file names.
+# `-mx=0' means that the data will not be compressed.
+# `"$1".zip' will name the result the input argument plus the .7z extension.
+# `"$1"` will use the input argument as the input directory.
