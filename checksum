@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import hashlib
+import argparse
+
+# This script takes a file and prints its MD5, SHA-1, and SHA-256 sums.
+
+parser = argparse.ArgumentParser()
+parser.add_argument("data")
+args = parser.parse_args()
+my_data = open(args.data).read().encode('utf-8')
+
+
+def md5(x):
+    return hashlib.md5(x).hexdigest()
+
+
+def sha1(x):
+    return hashlib.sha1(x).hexdigest()
+
+
+def sha256(x):
+    return hashlib.sha256(x).hexdigest()
+
+
+print("MD5:\t", md5(my_data))
+print("SHA-1:\t", sha1(my_data))
+print("SHA-256:", sha256(my_data))
+
