@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import nltk
+
+# Counts the number of times the passive voice appears in a text file.
+# This is currently only a library of funcitons.
+
+# All the different forms of "be" and "get"
+beget = ["be", "am", "are", "is", "was", "were", "been", "being", "get",
+        "gets", "getting", "got", "gotten"]
+
+
+def get_file(file_name):
+    """
+    Take a file and return it as a string
+    :param file_name: A file, probably .txt
+    :return: The contents of the file as a string
+    """
+    f = open(file_name)
+    result = f.read()
+    f.close()
+    return result
+
+
+def tag(file_name):
+    """
+    Take a file and tag it
+    :param file_name: A file, probably .txt
+    :return: The contents of the file as a list of words
+    """
+    string = get_file(file_name)  # Turn file into string
+    tokenized_string = nltk.word_tokenize(string)  # Tokenize string
+    tagged_string = nltk.pos_tag(tokenized_string)  # Tag tokens
+    return tagged_string  # Return tagged tokens
+
+
+def count(file_name):
+    """
+    Count the number of times the passive voice appears
+    :param file_name: A file, probably .txt
+    :return: The number of times that the passive voice appears in the text
+    """
+    tagged_string = tag(file_name)
+    passive_count = 0  # Passive voice count in tokenized string
+    for i in range(0, len(tagged_string) - 2):  # For each element except last
+        if tagged_string[i][0] in beget:  # If word in beget
+            if tagged_string[i + 1][1] == 'VBN':  # If next word past participle
+                passive_count += 1  # Increment passive_count
+    return passive_count
+
