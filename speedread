@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import argparse
+import os
+import time
+
+# This script takes a text file, quickly displays each word one at a time, and
+# displays its progress.
+
+parser = argparse.ArgumentParser()
+parser.add_argument("text")
+args = parser.parse_args()
+my_text = open(args.text).read()
+
+words = my_text.split()
+length = len(words)
+for i in range(0, length):
+    os.system('clear')
+    print(words[i])
+    print('\n',i, "/", length, "(", round(i / length * 100, 1), "%)")
+    time.sleep(0.15)
