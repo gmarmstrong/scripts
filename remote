@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Mounts a remote directory from SSH.
+# Depends on sshfs.
+
+argument="$1"
+remotepath="$2"
+localdir="$3"
+
+if ! command -v sshfs > /dev/null 2>&1; then
+    echo "ERROR: sshfs not installed"
+    exit
+fi
+
+if [ "$argument" == "mount" ]; then
+    mkdir localdir > /dev/null 2>&1
+    if [ "$remotepath" == "nike" ]; then
+        sshfs "gma@nike.cs.uga.edu:/home/ugrads/gma" "$localdir"
+    else
+        sshfs "$remotepath" "$localdir"
+    fi
+elif [ "$argument" == "unmount" ]; then
+    killall -9 sshfs
+    fusermount -u "$localdir"
+fi
