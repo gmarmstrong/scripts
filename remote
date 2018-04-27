@@ -13,7 +13,7 @@ if ! command -v sshfs > /dev/null 2>&1; then
 fi
 
 if [ "$argument" == "mount" ]; then
-    mkdir localdir > /dev/null 2>&1
+    mkdir "$localdir" > /dev/null 2>&1
     if [ "$remotepath" == "nike" ]; then
         sshfs "gma@nike.cs.uga.edu:/home/ugrads/gma" "$localdir"
     else
@@ -22,4 +22,8 @@ if [ "$argument" == "mount" ]; then
 elif [ "$argument" == "unmount" ]; then
     killall -9 sshfs
     fusermount -u "$localdir"
+elif [ -z "$argument" ]; then
+    echo "ERROR: missing argument"
+else
+    echo "ERROR: invalid argument: $argument"
 fi
