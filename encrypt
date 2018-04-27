@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Encrypts the input directory using 7-Zip (which must be installed).
 # To decrypt the result, just do "7z x result.7z"
