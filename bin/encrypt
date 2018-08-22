@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-# Encrypts the input directory using 7-Zip (which must be installed).
-# To decrypt the result, just do "7z x result.7z"
-# WARNING: this will overwrite anything in its way (but it should warn you first).
+# Encrypts the input directory using 7-Zip.
+# To decrypt the result, do "7z x result.7z"
+# WARNING: this will overwrite anything in its way (it will warn you first).
+# WARNING: do not append a slash to the target directory
 
-directory="$1"
-
-7z a -p -mhe=on -mx=0 "$1".7z "$1"
+if [ -z "$1" ]; then exit; fi       # exit if no target
+7z a -p -mhe=on -mx=0 "$1".7z "$1"  # encrypt target
 
 # Explanation:
 # `7z` calls the 7-Zip program. See "man 7zip" for more information.
